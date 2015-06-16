@@ -1,0 +1,9 @@
+---
+locked_files:
+- bin/
+- bin/*
+- env/
+- metadata/
+- metadata/*
+- hooks/
+- hooks/*

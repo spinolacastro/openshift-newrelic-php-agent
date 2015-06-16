@@ -1,0 +1,35 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+
+# PHP modules
+PHP53=newrelic-20090626.so
+PHP54=newrelic-20100525.so
+PHP55=newrelic-20121212.so
+
+
+case $OPENSHIFT_PHP_VERSION in
+	'5.3')
+	ln -s $OPENSHIFT_NEWRELIC/lib/agent/$PHP53 $OPENSHIFT_NEWRELIC/lib/agent/newrelic.so
+	;;
+	'5.4')
+	ln -s $OPENSHIFT_NEWRELIC/lib/agent/$PHP54 $OPENSHIFT_NEWRELIC/lib/agent/newrelic.so
+	;;
+	'5.5')
+	ln -s $OPENSHIFT_NEWRELIC/lib/agent/$PHP55 $OPENSHIFT_NEWRELIC/lib/agent/newrelic.so
+	;;
+	*)
+	break
+esac
+
+cp -a $OPENSHIFT_NEWRELIC/conf/newrelic.ini.erb $OPENSHIFT_NEWRELIC/conf/newrelic.ini
+
+ln -s $OPENSHIFT_NEWRELIC/conf/newrelic.ini $PHP_INI_SCAN_DIR/newrelic.ini
+
+
+client_result ""
+  client_result "Please don't forget to set your license key:"
+  client_result "  rhc set-env  OPENSHIFT_NEWRELIC_LICENSE_KEY=PUT_YOUR_LICENSE_HERE -a $OPENSHIFT_APP_NAME "
+  client_result "  rhc app-restart $OPENSHIFT_APP_NAME"
+client_result ""

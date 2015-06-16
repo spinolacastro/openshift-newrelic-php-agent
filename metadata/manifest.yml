@@ -1,0 +1,37 @@
+---
+Name: newrelic-php-agent
+Cartridge-Short-Name: NEWRELIC
+Cartridge-Version: '1.0.0'
+Cartridge-Vendor: getupcloud
+Display-Name: New Relic PHP Agent
+Description: The New Relic client connects to your New Relic account and publish
+  metrics for your application.
+Version: '4.22.0.99'
+License: New Relic
+License-Url: https://docs.newrelic.com/docs/licenses/licenses
+Vendor: New Relic
+Categories:
+  - embedded
+  - plugin
+  - newrelic
+Cart-Data:
+  - Key: OPENSHIFT_NEWRELIC_LICENSE_KEY
+    Type: environment
+    Description: "New Relic license key."
+Website: http://newrelic.com/
+Source-Url: https://github.com/spinolacastro/openshift-newrelic-php-agent.git
+Help-Topics:
+  Developer Center: https://docs.newrelic.com/docs/agents/php-agent
+Provides:
+  - newrelic-php
+  - newrelic-agent
+  - newrelic-php-agent
+Publishes:
+Subscribes:
+Group-Overrides:
+  - components:
+    - web_framework
+    - newrelic
+Scaling:
+  Min: 1
+  Max: -1

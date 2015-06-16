@@ -1,0 +1,44 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+function read_pid() {
+    if [ -f $NEWRELIC_DAEMON_PID=$OPENSHIFT_NEWRELIC_DIR/var/run/newrelic.pid ]; then
+        echo $(<$NEWRELIC_DAEMON_PID=$OPENSHIFT_NEWRELIC_DIR/var/run/newrelic.pid)
+    fi
+}
+
+function isrunning() {
+    local pid=`read_pid`
+    kill -0 "$pid" 2>/dev/null || return 1
+}
+
+function start {
+	oo-erb $OPENSHIFT_NEWRELIC/conf/newrelic.ini.erb > $OPENSHIFT_NEWRELIC/conf/newrelic.ini
+	gear restart -c php
+}
+
+function stop {
+	local pid=`read_pid`
+	kill -0 "$pid" 2>/dev/nul
+	rm -f $NEWRELIC_DAEMON_PID=$OPENSHIFT_NEWRELIC_DIR/var/run/newrelic.pid
+}
+
+
+case "$1" in
+	start) start ;;
+	stop) stop ;;
+	restart) 
+		stop
+		start
+  	;;
+	status)
+		if isrunning
+		then
+			client_result "NewRelic is running"
+		else
+			client_result "NewRelic is stopped"
+		fi
+		exit 0
+	;;
+esac
