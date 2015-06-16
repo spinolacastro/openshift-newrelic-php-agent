@@ -2,4 +2,5 @@
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
-mkdir -p ${OPENSHIFT_NEWRELIC}/var/run
+mkdir -p ${OPENSHIFT_NEWRELIC_DIR}/var/run
+

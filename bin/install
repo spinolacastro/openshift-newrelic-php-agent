@@ -11,21 +11,17 @@ PHP55=newrelic-20121212.so
 
 case $OPENSHIFT_PHP_VERSION in
 	'5.3')
-	ln -s $OPENSHIFT_NEWRELIC/lib/agent/$PHP53 $OPENSHIFT_NEWRELIC/lib/agent/newrelic.so
+	ln -s $OPENSHIFT_NEWRELIC_DIR/lib/agent/$PHP53 $OPENSHIFT_NEWRELIC_DIR/lib/agent/newrelic.so
 	;;
 	'5.4')
-	ln -s $OPENSHIFT_NEWRELIC/lib/agent/$PHP54 $OPENSHIFT_NEWRELIC/lib/agent/newrelic.so
+	ln -s $OPENSHIFT_NEWRELIC_DIR/lib/agent/$PHP54 $OPENSHIFT_NEWRELIC_DIR/lib/agent/newrelic.so
 	;;
 	'5.5')
-	ln -s $OPENSHIFT_NEWRELIC/lib/agent/$PHP55 $OPENSHIFT_NEWRELIC/lib/agent/newrelic.so
+	ln -s $OPENSHIFT_NEWRELIC_DIR/lib/agent/$PHP55 $OPENSHIFT_NEWRELIC_DIR/lib/agent/newrelic.so
 	;;
 	*)
 	break
 esac
-
-cp -a $OPENSHIFT_NEWRELIC/conf/newrelic.ini.erb $OPENSHIFT_NEWRELIC/conf/newrelic.ini
-
-ln -s $OPENSHIFT_NEWRELIC/conf/newrelic.ini $PHP_INI_SCAN_DIR/newrelic.ini
 
 
 client_result ""
